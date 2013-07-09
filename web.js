@@ -3,6 +3,15 @@ var fs = require('fs');
 
 var app = express.createServer(express.logger());
 
+app.configure(function() {
+  app.use('/media', express.static(__dirname + '/media'));
+});
+
+app.get('/', function(request, response) {
+  var html = fs.readFileSync('index.html', 'utf8');
+  response.send(html);
+});
+
 app.get('/', function(request, response) {
   var html = fs.readFileSync('index.html', 'utf8');
   response.send(html);
